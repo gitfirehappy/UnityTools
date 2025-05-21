@@ -67,7 +67,7 @@ public class EventCenterViewer : EditorWindow
                             AssetDatabase.OpenAsset(script, line);
                     }
                     GUI.color = Color.white;
-                    GUILayout.Label(trace.Split('\n')[2].Trim());
+                    GUILayout.Label(ExtractFirstMethodLine(trace));
                     EditorGUILayout.EndHorizontal();
                 }
                 else
@@ -92,7 +92,7 @@ public class EventCenterViewer : EditorWindow
                                 AssetDatabase.OpenAsset(script, line);
                         }
                         GUI.color = Color.white;
-                        GUILayout.Label(trace.Split('\n')[2].Trim());
+                        GUILayout.Label(ExtractFirstMethodLine(trace));
                         EditorGUILayout.EndHorizontal();
                     }
                     else
@@ -108,7 +108,7 @@ public class EventCenterViewer : EditorWindow
 
     #endregion
 
-    #region 堆栈信息提取
+    #region 堆栈信息处理
 
     private bool TryExtractFileInfo(string stackTrace, out string path, out int lineNumber)
     {
@@ -132,6 +132,17 @@ public class EventCenterViewer : EditorWindow
             }
         }
         return false;
+    }
+
+    private string ExtractFirstMethodLine(string trace)
+    {
+        var lines = trace.Split('\n');
+        foreach (var line in lines)
+        {
+            if (line.Trim().StartsWith("at "))
+                return line.Trim();
+        }
+        return lines.Length > 0 ? lines[0].Trim() : trace;
     }
 
     #endregion
