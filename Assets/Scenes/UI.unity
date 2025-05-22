@@ -174,7 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2be34699015fb04a83c63ad7832025c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cached: 1
   IsOpen: 0
+  IsInited: 0
   formType: 0
   formAnimType: 1
 --- !u!114 &178838428
@@ -256,6 +258,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ca03b2ef99378c4985ef7653f8bd5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  preloadPrefabs:
+  - {fileID: 1642729478276928866, guid: dea04cde48cb77f4f8d51e7c678417c5, type: 3}
+  - {fileID: 9166396210334390247, guid: 6ed7d2e223a7e9a419c77821ef10bd22, type: 3}
 --- !u!4 &239568122
 Transform:
   m_ObjectHideFlags: 0
@@ -417,6 +422,7 @@ GameObject:
   - component: {fileID: 1266087814}
   - component: {fileID: 1266087813}
   - component: {fileID: 1266087815}
+  - component: {fileID: 1266087816}
   m_Layer: 0
   m_Name: TestPanel2
   m_TagString: Untagged
@@ -494,9 +500,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45255dce63b351b4f83039859d7ba4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cached: 1
   IsOpen: 0
+  IsInited: 0
   formType: 1
   formAnimType: 2
+--- !u!225 &1266087816
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266087811}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1704515291
 GameObject:
   m_ObjectHideFlags: 0
