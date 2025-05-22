@@ -8,6 +8,8 @@ public class UIManager : Singleton<UIManager>
 
     public List<UIFormBase> showForms = new List<UIFormBase>();
 
+    public Stack<UIFormBase> showFormStack = new Stack<UIFormBase>();
+
     public Transform uiRoot
     {
         get { return GameObject.Find("UIRoot").transform; }
@@ -48,8 +50,12 @@ public class UIManager : Singleton<UIManager>
         var form = forms[name];
         form.Open(this);
         showForms.Add(form);
+        showFormStack.Push(form);
     } 
-
+    public void ShowUIForm<T>() where T : UIFormBase
+    {
+        ShowUIForm(typeof(T).Name);
+    }
     public void HideUIForm(string name)
     {
         var form = forms[name];
@@ -59,7 +65,35 @@ public class UIManager : Singleton<UIManager>
             form.Close();
         }
     }
+    public void HideUIForm<T>() where T : UIFormBase
+    {
+        HideUIForm(typeof(T).Name);
+    }
+    /// <summary>
+    /// 依次关闭UIForm
+    /// </summary>
+    public void HideUIFormTurn()
+    {
+        if(showFormStack.Count > 0)
+        {
+            var form = showFormStack.Pop();
+            HideUIForm(form.name);
+        }
+    }
+    public void HideAllUIForm()
+    {
+        for(int i = 0; i < showForms.Count; i++)
+        {
+            showForms[i].Close();
+        }
+        showForms.Clear();
+    }
+    public bool HasActiveForm()
+    {
+        return forms.Count > 0;
+    }
 }
+
 
 public interface IUIForm
 {
@@ -67,4 +101,20 @@ public interface IUIForm
     void UnRegisterForm() => UIManager.Instance.RegisterForm(this);
 
     UIFormBase GetUIFormBase();
+}
+
+public enum FormAnimType
+{
+    None,
+
+    Fade,
+
+    Zoom,
+}
+
+public enum FormType
+{
+    None = 0,
+
+    Top,//总是在上层
 }

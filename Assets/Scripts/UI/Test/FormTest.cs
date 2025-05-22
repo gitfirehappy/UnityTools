@@ -8,7 +8,7 @@ public class FormTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            UIManager.Instance.ShowUIForm("TestPanel1");
+            UIManager.Instance.ShowUIForm<TestPanel1>();
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -16,11 +16,19 @@ public class FormTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            UIManager.Instance.HideUIForm("TestPanel1");
+            UIManager.Instance.HideUIForm<TestPanel1>();
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
             UIManager.Instance.HideUIForm("TestPanel2");
+        }
+
+        if (UIManager.Instance.HasActiveForm())
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                UIManager.Instance.HideUIFormTurn();
+            }
         }
     }
 }

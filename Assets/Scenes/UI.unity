@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 178838429}
   - component: {fileID: 178838428}
   - component: {fileID: 178838427}
+  - component: {fileID: 178838430}
   m_Layer: 0
   m_Name: TestPanel1
   m_TagString: Untagged
@@ -174,6 +175,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsOpen: 0
+  formType: 0
+  formAnimType: 1
 --- !u!114 &178838428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +215,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178838425}
   m_CullTransparentMesh: 1
+--- !u!225 &178838430
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178838425}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &239568120
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +495,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsOpen: 0
+  formType: 1
+  formAnimType: 2
 --- !u!1 &1704515291
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,10 @@ public class UIFormBase : MonoBehaviour, IUIForm
     private UIManager uIManager;
 
     public bool IsOpen;
+
+    public FormType formType = FormType.None;
+
+    public FormAnimType formAnimType;//动画类型
     private void Awake()
     {
         IUIForm uIForm = this;
@@ -22,12 +26,43 @@ public class UIFormBase : MonoBehaviour, IUIForm
     {
         this.uIManager = uIManager;
         IsOpen = true;
-        gameObject.SetActive(true);
+        OpenAnim();
     }
     public void Close()
     {
         IsOpen = false;
-        gameObject.SetActive(false);
+        CloseAnim();
+    }
+
+    private void OpenAnim()
+    {
+        switch (formAnimType)
+        {
+            case FormAnimType.None:
+                gameObject.SetActive(true);
+                break;
+            case FormAnimType.Fade:
+                UIAnimation.FadeIn(this);
+                break;
+            case FormAnimType.Zoom:
+                UIAnimation.ZoomIn(this);
+                break;
+        }
+    }
+    private void CloseAnim()
+    {
+        switch (formAnimType)
+        {
+            case FormAnimType.None:
+                gameObject.SetActive(false);
+                break;
+            case FormAnimType.Fade:
+                UIAnimation.FadeOut(this);
+                break;
+            case FormAnimType.Zoom:
+                UIAnimation.ZoomOut(this);
+                break;
+        }
     }
     public UIFormBase GetUIFormBase()
     {
