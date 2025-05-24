@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1baa8d189bdd8a4cb7287ba83fd6e65, type: 3}
   m_Name: DefaultUILayer
   m_EditorClassIdentifier: 
-  layerName: Default
-  order: 0
+  displayName: Default
+  majorOrder: 1
+  minorOrder: 0

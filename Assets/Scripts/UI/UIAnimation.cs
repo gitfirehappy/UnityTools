@@ -138,14 +138,46 @@ public static class UIAnimation
 
     #endregion
 
-    #region 闪烁提示动画
+    #region 闪烁提示动画(闲置）
 
-    public static void Pulse(Transform target, float scaleMultiplier = 1.2f, float duration = 0.3f)
+    /// <summary>
+    /// 开始闪烁动画（自动激活对象）
+    /// </summary>
+    public static void PulseIn(UIFormBase uIForm, Action onComplete = null, float scaleMultiplier = 1.2f, float duration = 0.3f)
     {
+        FormActiveByType(uIForm); // 处理层级排序
+        var target = uIForm.transform;
+
+        target.DOKill(); // 停止之前的动画
+        target.localScale = Vector3.one; // 重置缩放
+
         Sequence seq = DOTween.Sequence();
         seq.Append(target.DOScale(scaleMultiplier, duration).SetEase(Ease.OutQuad));
         seq.Append(target.DOScale(1f, duration).SetEase(Ease.InQuad));
         seq.SetLoops(-1, LoopType.Yoyo);
+        seq.OnPlay(() => {
+            target.gameObject.SetActive(true); // 动画开始时激活
+        });
+        seq.OnComplete(() => onComplete?.Invoke());
+    }
+
+    /// <summary>
+    /// 停止闪烁动画（自动禁用对象）
+    /// </summary>
+    public static void PulseOut(UIFormBase uIForm, Action onComplete = null, float fadeDuration = 0.2f)
+    {
+        var target = uIForm.transform;
+
+        // 停止所有动画但不立即完成
+        target.DOKill();
+
+        // 快速平滑地恢复原始大小
+        target.DOScale(1f, fadeDuration)
+            .OnComplete(() => {
+                target.gameObject.SetActive(false);
+                onComplete?.Invoke();
+            })
+            .SetUpdate(true);
     }
 
     #endregion
@@ -155,6 +187,7 @@ public static class UIAnimation
     /// <summary>
     /// 设置面板为激活状态，并根据层级类型置顶
     /// </summary>
+    // 在UIAnimation.cs中修改FormActiveByType方法
     public static void FormActiveByType(UIFormBase formBase)
     {
         var obj = formBase.gameObject;
@@ -169,9 +202,19 @@ public static class UIAnimation
 
         siblings.Sort((a, b) =>
         {
-            var fa = a.GetComponent<UIFormBase>()?.LayerOrder ?? 0;
-            var fb = b.GetComponent<UIFormBase>()?.LayerOrder ?? 0;
-            return fa.CompareTo(fb);
+            var fa = a.GetComponent<UIFormBase>();
+            var fb = b.GetComponent<UIFormBase>();
+
+            if (fa == null && fb == null) return 0;
+            if (fa == null) return -1;
+            if (fb == null) return 1;
+
+            // 先比较大层级数字
+            int majorCompare = fa.MajorLayerOrder.CompareTo(fb.MajorLayerOrder);
+            if (majorCompare != 0) return majorCompare;
+
+            // 大层级相同再比较小层级数字
+            return fa.MinorLayerOrder.CompareTo(fb.MinorLayerOrder);
         });
 
         for (int i = 0; i < siblings.Count; i++)

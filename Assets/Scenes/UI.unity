@@ -177,8 +177,8 @@ MonoBehaviour:
   Cached: 1
   IsOpen: 0
   IsInited: 0
-  _layerAsset: {fileID: 11400000, guid: 8a7993e77f98ff64187220ba9db2a594, type: 2}
-  formAnimType: 5
+  _layerAsset: {fileID: 11400000, guid: 12887fb0e10ec6042bb08ac7976d7f56, type: 2}
+  formAnimType: 7
   originalLocalPos: {x: 0, y: 0, z: 0}
 --- !u!114 &178838428
 MonoBehaviour:
@@ -504,8 +504,8 @@ MonoBehaviour:
   Cached: 1
   IsOpen: 0
   IsInited: 0
-  _layerAsset: {fileID: 11400000, guid: 12887fb0e10ec6042bb08ac7976d7f56, type: 2}
-  formAnimType: 4
+  _layerAsset: {fileID: 11400000, guid: 8a7993e77f98ff64187220ba9db2a594, type: 2}
+  formAnimType: 6
   originalLocalPos: {x: 0, y: 0, z: 0}
 --- !u!225 &1266087816
 CanvasGroup:

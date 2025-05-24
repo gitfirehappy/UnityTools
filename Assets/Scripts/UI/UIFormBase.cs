@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 
 /// <summary>
 /// 所有 UI 面板应继承此类，内置动画、生命周期控制
@@ -15,8 +16,8 @@ public class UIFormBase : MonoBehaviour, IUIForm
 
     [SerializeField]
     private UILayerSO _layerAsset;
-
-    public int LayerOrder => _layerAsset != null ? _layerAsset.order : 0;
+    public int MajorLayerOrder => _layerAsset != null ? _layerAsset.majorOrder : 0;
+    public int MinorLayerOrder => _layerAsset != null ? _layerAsset.minorOrder : 0;
 
     public FormAnimType formAnimType = FormAnimType.None;
 

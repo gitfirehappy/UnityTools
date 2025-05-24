@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   displayName: adasdasdasd
-  order: -100
+  majorOrder: 0
+  minorOrder: 50
