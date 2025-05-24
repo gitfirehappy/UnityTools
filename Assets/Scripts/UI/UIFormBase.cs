@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// 所有 UI 面板应继承此类，内置动画、生命周期控制
@@ -12,8 +13,14 @@ public class UIFormBase : MonoBehaviour, IUIForm
     public bool IsOpen = false;
     public bool IsInited = false;
 
-    public FormType formType = FormType.None;
+    [SerializeField]
+    private UILayerSO _layerAsset;
+
+    public int LayerOrder => _layerAsset != null ? _layerAsset.order : 0;
+
     public FormAnimType formAnimType = FormAnimType.None;
+
+    public Vector3 originalLocalPos;
 
     private void Awake()
     {
@@ -21,6 +28,8 @@ public class UIFormBase : MonoBehaviour, IUIForm
 
         IUIForm ui = this;
         ui.RegisterForm();
+
+        originalLocalPos = transform.localPosition; // 缓存初始位置
 
         // 场景面板默认关闭，不闪烁
         if (gameObject.activeSelf)
@@ -103,6 +112,24 @@ public class UIFormBase : MonoBehaviour, IUIForm
             case FormAnimType.Zoom:
                 UIAnimation.ZoomIn(this, () => IsOpen = true);
                 break;
+            case FormAnimType.Pop:
+                UIAnimation.PopIn(this, () => IsOpen = true);
+                break;
+            case FormAnimType.SlideLeft:
+                UIAnimation.SlideIn(this, new Vector3(-Screen.width, 0, 0), () => IsOpen = true);
+                break;
+            case FormAnimType.SlideRight:
+                UIAnimation.SlideIn(this, new Vector3(Screen.width, 0, 0), () => IsOpen = true);
+                break;
+            case FormAnimType.SlideUp:
+                UIAnimation.SlideIn(this, new Vector3(0, Screen.height, 0), () => IsOpen = true);
+                break;
+            case FormAnimType.SlideDown:
+                UIAnimation.SlideIn(this, new Vector3(0, -Screen.height, 0), () => IsOpen = true);
+                break;
+            case FormAnimType.FadeSlide:
+                UIAnimation.FadeSlideIn(this, new Vector3(0, -100, 0), () => IsOpen = true);
+                break;
         }
     }
 
@@ -130,6 +157,24 @@ public class UIFormBase : MonoBehaviour, IUIForm
                 break;
             case FormAnimType.Zoom:
                 UIAnimation.ZoomOut(this, onCloseComplete);
+                break;
+            case FormAnimType.Pop:
+                UIAnimation.PopOut(this, onCloseComplete);
+                break;
+            case FormAnimType.SlideLeft:
+                UIAnimation.SlideOut(this, new Vector3(-Screen.width, 0, 0), onCloseComplete);
+                break;
+            case FormAnimType.SlideRight:
+                UIAnimation.SlideOut(this, new Vector3(Screen.width, 0, 0), onCloseComplete);
+                break;
+            case FormAnimType.SlideUp:
+                UIAnimation.SlideOut(this, new Vector3(0, Screen.height, 0), onCloseComplete);
+                break;
+            case FormAnimType.SlideDown:
+                UIAnimation.SlideOut(this, new Vector3(0, -Screen.height, 0), onCloseComplete);
+                break;
+            case FormAnimType.FadeSlide:
+                UIAnimation.FadeOut(this, onCloseComplete); // 可以扩展加 SlideOut 效果
                 break;
         }
     }

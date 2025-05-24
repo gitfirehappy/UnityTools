@@ -219,10 +219,32 @@ public enum FormAnimType
     None,
     Fade,
     Zoom,
+    Pop,
+    SlideLeft,
+    SlideRight,
+    SlideUp,
+    SlideDown,
+    FadeSlide
 }
 
-public enum FormType
+/// <summary>
+/// UI 层级定义，可灵活扩展
+/// </summary>
+public class FormLayer
 {
-    None = 0,
-    Top,
+    public static readonly FormLayer Default = new("Default", 0);
+    public static readonly FormLayer Top = new("Top", 100);
+    public static readonly FormLayer Popup = new("Popup", 200);
+    public static readonly FormLayer Guide = new("Guide", 1000);
+
+    public string Name { get; }
+    public int Order { get; }
+
+    private FormLayer(string name, int order)
+    {
+        Name = name;
+        Order = order;
+    }
+
+    public override string ToString() => Name;
 }
