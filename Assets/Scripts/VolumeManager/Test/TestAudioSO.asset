@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87862d4ba1fd9b44da3caf630c157cda, type: 3}
+  m_Name: TestAudioSO
+  m_EditorClassIdentifier: 
+  sceneBGMs:
+  - sceneBuildIndex: 0
+    bgmClip: {fileID: 8300000, guid: dd6c82b3a918f34489a3dcc3101d0628, type: 3}
