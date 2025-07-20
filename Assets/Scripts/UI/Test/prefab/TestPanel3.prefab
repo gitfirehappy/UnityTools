@@ -102,11 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d2a8b4e7640dc4fa31944b798370e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cached: 0
+  Cached: 1
   IsOpen: 0
   IsInited: 0
-  formType: 1
+  _layerAsset: {fileID: 0}
   formAnimType: 1
+  originalLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2213161553072071441
 GameObject:
   m_ObjectHideFlags: 0
